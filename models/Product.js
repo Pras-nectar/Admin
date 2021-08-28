@@ -143,7 +143,17 @@ const ProductSchema = new mongoose.Schema({
 });
 
 //collection
-
+ProductSchema.pre('save', function (next) {
+  try{
+    for(let i=0;i<this.sku.length;i++){
+      const discount = (this.sku[i].base_price * this.sku[i].offer)/100;
+      this.sku[i].final_price = this.sku[i].base_price - discount + this.sku[i].deliveryCharge
+    }
+    return next()
+  }catch(err){
+    return next(err);
+  }
+})
 const Product = new mongoose.model("Product", ProductSchema);
 
 module.exports = Product;
