@@ -1,8 +1,3 @@
-// products: array,
-// orderStatus: String : ["Executed","Dispatched","Delivered","Payment Settled"]
-// returnStatus: String : ["Executed","Dispatched","Delivered","Payment Settled"]
-// transaction:
-// user:
 const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema({
@@ -26,7 +21,7 @@ const OrderSchema = new mongoose.Schema({
             final_price:Number,
             productOrderStatus: {
                 type: String,
-                enum: ["Order Placed","Executed","Dispatched","Delivered","Payment Settled","Refunded"]
+                enum: ["Order Placed","Initiated","Dispatched","Delivered","Payment Settled","Return started"]
             },      
             isReturned: {
                 type:Boolean,
@@ -34,8 +29,9 @@ const OrderSchema = new mongoose.Schema({
             },
             productReturnStatus: {
                 type: String,
-                enum: ["Executed","Taken","Returned","Payment Settled"]
+                enum: ["Return initiated","Return Taken","Returned","Return Payment Settled"]
             },
+            trackingID: String,
         }
     ],
     transactionDetails: {
@@ -57,7 +53,6 @@ const OrderSchema = new mongoose.Schema({
         town: String,
         state: String,
     },
-    trackingID: String,
     shippingService: String,
 },{ timestamps: true});
 
