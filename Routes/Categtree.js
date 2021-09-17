@@ -46,7 +46,7 @@ router.post("/addAllFive", async (req, res) => {
       const exists5 = await findOneCat(category5, 5);
 
       const catArrCheck = [exists1, exists2, exists3, exists4, exists5];
-      console.log(catArrCheck);
+      // console.log(catArrCheck);
       const newCatArr = [];
       for (let i = 0; i < 5; i++) {
         if (catArrCheck[i] === null) {
@@ -56,8 +56,6 @@ router.post("/addAllFive", async (req, res) => {
           newCatArr[i] = await catArrCheck[i];
         }
       }
-      console.log(newCatArr);
-
       for (let i = 0; i < 5; i++) {
         if (i < 4) {
           if (newCatArr[i].children > 0) {
@@ -93,7 +91,6 @@ router.get("/getAllTopCategory", async (req, res) => {
 });
 
 router.get("/getLowerCategoryOf/:id", async (req, res) => {
-  console.log(req.params.id);
   try {
     const category = await Categtree.findById(req.params.id);
     console.log(category);
